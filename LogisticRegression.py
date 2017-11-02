@@ -209,6 +209,7 @@ def main():
     test_score = my_score(y_test_predict, y_test)
     print('Training Score:', train_score)
     print('Test Score:', test_score)
+    print('Good bye')
 
 
 if __name__ == "__main__":
