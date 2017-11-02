@@ -148,14 +148,11 @@ def draw_result_binary(X_train, X_test, y_train, y_test, w):
             y_min, y_max, h))
     cm = plt.cm.RdBu
     cm_bright = ListedColormap(['#FF0000', '#0000FF'])
-    #    ax = plt.figure(1)
-    # Plot the training points
+    ax = plt.figure(1)
     plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train,
                 cmap=cm_bright, edgecolors='k', label='Training Data')
-    # and testing points
     plt.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright,
                 edgecolors='k', marker='x', linewidth=3, label='Test Data')
-    # Put the result into a color plot
     tmpX = np.c_[xx.ravel(), yy.ravel()]
     Z = my_predict_binary(tmpX, w)
     Z = Z.reshape(xx.shape)
@@ -185,23 +182,20 @@ def my_train_multi(X_train, y_train):
     return w
 
 
-# predict labels using the logistic regression model on any input set X
 def my_predict_multi(X, w):
     return np.zeros([X.shape[0], 1])
 
 
 def main():
     x_train, x_test, y_train, y_test = acquire_data('synthetic-easy')
-    number_of_features = x_train.shape[1]  # number of features
-    number_of_training_data = x_train.shape[0]  # number of training data
-    number_of_test_data = x_test.shape[0]  # number of test data
+    number_of_features = x_train.shape[1]
+    number_of_training_data = x_train.shape[0]
+    number_of_test_data = x_test.shape[0]
     y = np.append(y_train, y_test)
-    number_of_classes = len(np.unique(y))  # number of classes
-    # only draw data (on the first two dimension)
+    number_of_classes = len(np.unique(y))
     draw_data(x_train, x_test, y_train, y_test, number_of_classes)
     if number_of_classes == 2:
         w_opt = my_train_binary(x_train, y_train)
-        # debugging example
         draw_result_binary(x_train, x_test, y_train, y_test, w_opt)
     else:
         w_opt = my_train_multi(x_train, y_train)

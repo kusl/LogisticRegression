@@ -1,0 +1,28 @@
+image: python:latest
+
+test:
+  script:
+  - apt-get update -qy
+  - apt-get upgrade -qy
+  - python --version
+  - apt-get install python3 python3-pip python3-dev -qy
+  - pip --version
+  - pip install --upgrade pip setuptools
+  - pip --version
+  - pip install -r requirements.txt
+  - python LogisticRegression.py
+  artifacts:
+    paths:
+    - public/
+
+pages:
+  stage: deploy
+  script:
+  - echo 'Nothing to do...'
+  dependencies:
+  - test
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
