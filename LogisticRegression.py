@@ -98,11 +98,11 @@ def draw_data(x_train, x_test, y_train, y_test, number_of_classes):
     plt.savefig('public/draw_data.png')
 
 
-def my_train_binary(X_train, y_train):
+def my_train_binary(x_train, y_train):
     logging.info('Start training ...')
     # fixme
     np.random.seed(100)
-    number_of_features = X_train.shape[1]
+    number_of_features = x_train.shape[1]
     # w = np.random.rand(number_of_features + 1)
     w = [0, 0, 0]
     logging.info(w)
