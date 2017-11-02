@@ -103,7 +103,8 @@ def my_train_binary(X_train, y_train):
     # fixme
     np.random.seed(100)
     number_of_features = X_train.shape[1]
-    w = np.random.rand(number_of_features + 1)
+    # w = np.random.rand(number_of_features + 1)
+    w = [0, 0, 0]
     logging.info(w)
     logging.info('Finished training.')
     return w
