@@ -6,7 +6,7 @@ python:
   - "nightly"
 # command to install dependencies
 install:
-  - pip install numpy scipy sklearn
+  - pip install -r requirements.txt
 # command to run tests
 script:
   - python LogisticRegression.py
