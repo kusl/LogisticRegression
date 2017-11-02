@@ -47,7 +47,6 @@ def main():
     X += 0 * rng.uniform(size=X.shape)
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.5, random_state=42)
-    compute_grad()
 
 
 if __name__ == "__main__":
