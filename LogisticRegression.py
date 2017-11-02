@@ -104,6 +104,7 @@ def my_train_binary(X_train, y_train):
     np.random.seed(100)
     number_of_features = X_train.shape[1]
     w = np.random.rand(number_of_features + 1)
+    logging.info(w)
     logging.info('Finished training.')
     return w
 
@@ -197,8 +198,10 @@ def main():
         y_test_predict = my_predict_multi(x_test, w_opt)
     train_score = my_score(y_train_predict, y_train)
     test_score = my_score(y_test_predict, y_test)
-    logging.info(f"Training Score: {train_score}")
-    logging.info(f"Test Score: {test_score}")
+    logging.info("Training Score: ")
+    logging.info(train_score)
+    logging.info("Test Score: ")
+    logging.info(test_score)
     logging.info('Good bye')
 
 
