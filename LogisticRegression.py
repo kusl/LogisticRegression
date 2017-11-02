@@ -1,5 +1,8 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
+import logging
+
+logging.basicConfig(filename='example.log', level=logging.DEBUG)
 import matplotlib
 
 matplotlib.use('Agg')
@@ -99,9 +102,8 @@ def my_train_binary(X_train, y_train):
     print('Start training ...')
     # fixme
     np.random.seed(100)
-    nfeatures = X_train.shape[1]
-    w = np.random.rand(nfeatures + 1)
-    # w = [-1,0,0]
+    number_of_features = X_train.shape[1]
+    w = np.random.rand(number_of_features + 1)
     print('Finished training.')
     return w
 
@@ -162,11 +164,10 @@ def draw_result_binary(x_train, x_test, y_train, y_test, w):
 
 def my_train_multi(x_train, y_train):
     print('Start training ...')
-    # fake code, only return a random vector
+    # fixme
     np.random.seed(100)
-    nfeatures = x_train.shape[1]
-    w = np.random.rand(nfeatures + 1)
-    # w = [-1,0,0]
+    number_of_features = x_train.shape[1]
+    w = np.random.rand(number_of_features + 1)
     print('Finished training.')
     return w
 
