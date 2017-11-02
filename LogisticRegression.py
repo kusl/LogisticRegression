@@ -16,27 +16,28 @@ def get_data_name():
     return global_data_name
 
 
-# acquire data, split it into training and testing sets (50% each)
-# nc -- number of classes for synthetic datasets
-def acquire_data(data_name, nc=2):
+def acquire_data(data_name, number_of_classes_for_synthetic_data_set=2):
     global global_data_name
     global_data_name = data_name
     if data_name == 'synthetic-easy':
         print('Creating easy synthetic labeled dataset')
         X, y = datasets.make_classification(
-            n_features=2, n_redundant=0, n_informative=2, n_classes=nc, random_state=1, n_clusters_per_class=1)
+            n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
+            random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
         X += 0 * rng.uniform(size=X.shape)
     elif data_name == 'synthetic-medium':
         print('Creating medium synthetic labeled dataset')
         X, y = datasets.make_classification(
-            n_features=2, n_redundant=0, n_informative=2, n_classes=nc, random_state=1, n_clusters_per_class=1)
+            n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
+            random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
         X += 3 * rng.uniform(size=X.shape)
     elif data_name == 'synthetic-hard':
         print('Creating hard easy synthetic labeled dataset')
         X, y = datasets.make_classification(
-            n_features=2, n_redundant=0, n_informative=2, n_classes=nc, random_state=1, n_clusters_per_class=1)
+            n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
+            random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
         X += 5 * rng.uniform(size=X.shape)
     elif data_name == 'moons':
@@ -68,28 +69,22 @@ def acquire_data(data_name, nc=2):
     return X_train, X_test, y_train, y_test
 
 
-# compare the prediction with grount-truth, evaluate the score
 def my_score(y, y_gt):
     assert len(y) == len(y_gt)
     return np.sum(y == y_gt) / float(len(y))
 
 
-# plot data on 2D plane
-# use it for debugging
-def draw_data(X_train, X_test, y_train, y_test, nclasses):
+def draw_data(x_train, x_test, y_train, y_test, number_of_classes):
     h = .02
-    X = np.vstack([X_train, X_test])
+    X = np.vstack([x_train, x_test])
     x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
     y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
 
     cm = plt.cm.jet
-    # Plot the training points
-    plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train,
+    plt.scatter(x_train[:, 0], x_train[:, 1], c=y_train,
                 cmap=cm, edgecolors='k', label='Training Data')
-    # and testing points
-    plt.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm,
+    plt.scatter(x_test[:, 0], x_test[:, 1], c=y_test, cmap=cm,
                 edgecolors='k', marker='x', linewidth=3, label='Test Data')
-
     plt.xlim(x_min, x_max)
     plt.ylim(y_min, y_max)
     plt.xticks(())
@@ -100,12 +95,9 @@ def draw_data(X_train, X_test, y_train, y_test, nclasses):
     plt.savefig('public/draw_data.png')
 
 
-####################################################
-# binary label classification
-# train the weight vector w
 def my_train_binary(X_train, y_train):
     print('Start training ...')
-    # fake code, only return a random vector
+    # fixme
     np.random.seed(100)
     nfeatures = X_train.shape[1]
     w = np.random.rand(nfeatures + 1)
@@ -114,29 +106,26 @@ def my_train_binary(X_train, y_train):
     return w
 
 
-# predict labels using the logistic regression model on any input set X
-def my_predict_binary(X, w):
-    # here is a fake implementation, you should replace it
-    assert len(w) == X.shape[1] + 1
+def my_predict_binary(x, w):
+    # fixme
+    assert len(w) == x.shape[1] + 1
     w_vec = np.reshape(w, (-1, 1))
-    x_extended = np.hstack([X, np.ones([X.shape[0], 1])])
+    x_extended = np.hstack([x, np.ones([x.shape[0], 1])])
     y_pred = np.ravel(np.sign(np.dot(x_extended, w_vec)))
-    return convert_pred2gt_binary(y_pred)
+    return convert_negative_one_one_to_zero_one(y_pred)
 
 
 # convert -1/1 to 0/1
-def convert_pred2gt_binary(y_pred):
+def convert_negative_one_one_to_zero_one(y_pred):
     return np.maximum(np.zeros(y_pred.shape), y_pred)
 
 
 # convert 0/1 to -1/1
-def convert_gt_to_binary_prediction(y_gt):
+def convert_zero_one_to_negative_one_one(y_gt):
     y = 2 * (y_gt - 0.5)
     return y
 
 
-# draw results on 2D plan for binary classification
-# use it for debugging
 def draw_result_binary(x_train, x_test, y_train, y_test, w):
     h = .02
     X = np.vstack([x_train, x_test])
