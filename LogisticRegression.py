@@ -23,49 +23,49 @@ def acquire_data(data_name, number_of_classes_for_synthetic_data_set=2):
     global global_data_name
     global_data_name = data_name
     if data_name == 'synthetic-easy':
-        print('Creating easy synthetic labeled dataset')
+        logging.info('Creating easy synthetic labeled dataset')
         X, y = datasets.make_classification(
             n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
             random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
         X += 0 * rng.uniform(size=X.shape)
     elif data_name == 'synthetic-medium':
-        print('Creating medium synthetic labeled dataset')
+        logging.info('Creating medium synthetic labeled dataset')
         X, y = datasets.make_classification(
             n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
             random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
         X += 3 * rng.uniform(size=X.shape)
     elif data_name == 'synthetic-hard':
-        print('Creating hard easy synthetic labeled dataset')
+        logging.info('Creating hard easy synthetic labeled dataset')
         X, y = datasets.make_classification(
             n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
             random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
         X += 5 * rng.uniform(size=X.shape)
     elif data_name == 'moons':
-        print('Creating two moons dataset')
+        logging.info('Creating two moons dataset')
         X, y = datasets.make_moons(noise=0.3, random_state=0)
     elif data_name == 'circles':
-        print('Creating two circles dataset')
+        logging.info('Creating two circles dataset')
         X, y = datasets.make_circles(noise=0.2, factor=0.5, random_state=1)
     elif data_name == 'iris':
-        print('Loading iris dataset')
+        logging.info('Loading iris dataset')
         iris = datasets.load_iris()
         X = iris.data
         y = iris.target
     elif data_name == 'digits':
-        print('Loading digits dataset')
+        logging.info('Loading digits dataset')
         digits = datasets.load_digits()
         X = digits.data
         y = digits.target
     elif data_name == 'breast_cancer':
-        print('Loading breast cancer dataset')
+        logging.info('Loading breast cancer dataset')
         bcancer = datasets.load_breast_cancer()
         X = bcancer.data
         y = bcancer.target
     else:
-        print('Cannot find the requested data_name')
+        logging.info('Cannot find the requested data_name')
         assert False
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.5, random_state=42)
@@ -104,7 +104,7 @@ def my_train_binary(X_train, y_train):
     np.random.seed(100)
     number_of_features = X_train.shape[1]
     w = np.random.rand(number_of_features + 1)
-    print('Finished training.')
+    logging.info('Finished training.')
     return w
 
 
@@ -163,12 +163,12 @@ def draw_result_binary(x_train, x_test, y_train, y_test, w):
 
 
 def my_train_multi(x_train, y_train):
-    print('Start training ...')
+    logging.info('Start training ...')
     # fixme
     np.random.seed(100)
     number_of_features = x_train.shape[1]
     w = np.random.rand(number_of_features + 1)
-    print('Finished training.')
+    logging.info('Finished training.')
     return w
 
 
@@ -197,9 +197,9 @@ def main():
         y_test_predict = my_predict_multi(x_test, w_opt)
     train_score = my_score(y_train_predict, y_train)
     test_score = my_score(y_test_predict, y_test)
-    print('Training Score:', train_score)
-    print('Test Score:', test_score)
-    print('Good bye')
+    logging.info(f"Training Score: {train_score}")
+    logging.info(f"Test Score: {test_score}")
+    logging.info('Good bye')
 
 
 if __name__ == "__main__":
