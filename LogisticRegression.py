@@ -1,4 +1,7 @@
 import numpy
+from sklearn import datasets
+from sklearn.model_selection import train_test_split
+
 
 def sigmoid(X):
     '''Compute the sigmoid function '''
@@ -8,8 +11,10 @@ def sigmoid(X):
     return d
 
 
-def compute_cost(theta, X, y):  # computes cost given predicted and actual values
-    m = X.shape[0]  # number of training examples
+# computes cost given predicted and actual values
+def compute_cost(theta, X, y):
+    # number of training examples
+    m = X.shape[0]
     theta = numpy.reshape(theta, (len(theta), 1))
     # y = reshape(y,(len(y),1))
     J = (1. / m) * (
@@ -33,3 +38,17 @@ def compute_grad(theta, X, y):
     theta.shape = (3,)
     print(grad)
     return grad
+
+
+def main():
+    X, y = datasets.make_classification(
+        n_features=2, n_redundant=0, n_informative=2, n_classes=2, random_state=1, n_clusters_per_class=1)
+    rng = numpy.random.RandomState(2)
+    X += 0 * rng.uniform(size=X.shape)
+    X_train, X_test, y_train, y_test = train_test_split(
+        X, y, test_size=0.5, random_state=42)
+    compute_grad()
+
+
+if __name__ == "__main__":
+    main()
