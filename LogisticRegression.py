@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-logging.basicConfig(filename='example.log', level=logging.DEBUG)
+logging.basicConfig(filename='public/my_log.log', level=logging.DEBUG)
 import matplotlib
 
 matplotlib.use('Agg')
@@ -99,7 +99,7 @@ def draw_data(x_train, x_test, y_train, y_test, number_of_classes):
 
 
 def my_train_binary(X_train, y_train):
-    print('Start training ...')
+    logging.info('Start training ...')
     # fixme
     np.random.seed(100)
     number_of_features = X_train.shape[1]
