@@ -67,9 +67,9 @@ def acquire_data(data_name, number_of_classes_for_synthetic_data_set=2):
     else:
         logging.info('Cannot find the requested data_name')
         assert False
-    X_train, X_test, y_train, y_test = train_test_split(
+    x_train, x_test, y_train, y_test = train_test_split(
         X, y, test_size=0.5, random_state=42)
-    return X_train, X_test, y_train, y_test
+    return x_train, x_test, y_train, y_test
 
 
 def my_score(y, y_gt):
