@@ -69,7 +69,7 @@ def acquire_data(data_name, nc=2):
 
 
 # compare the prediction with grount-truth, evaluate the score
-def myscore(y, y_gt):
+def my_score(y, y_gt):
     assert len(y) == len(y_gt)
     return np.sum(y == y_gt) / float(len(y))
 
@@ -130,16 +130,16 @@ def convert_pred2gt_binary(y_pred):
 
 
 # convert 0/1 to -1/1
-def convert_gt2pred_binary(y_gt):
+def convert_gt_to_binary_prediction(y_gt):
     y = 2 * (y_gt - 0.5)
     return y
 
 
 # draw results on 2D plan for binary classification
 # use it for debugging
-def draw_result_binary(X_train, X_test, y_train, y_test, w):
+def draw_result_binary(x_train, x_test, y_train, y_test, w):
     h = .02
-    X = np.vstack([X_train, X_test])
+    X = np.vstack([x_train, x_test])
     x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
     y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
     xx, yy = np.meshgrid(
@@ -149,9 +149,9 @@ def draw_result_binary(X_train, X_test, y_train, y_test, w):
     cm = plt.cm.RdBu
     cm_bright = ListedColormap(['#FF0000', '#0000FF'])
     ax = plt.figure(1)
-    plt.scatter(X_train[:, 0], X_train[:, 1], c=y_train,
+    plt.scatter(x_train[:, 0], x_train[:, 1], c=y_train,
                 cmap=cm_bright, edgecolors='k', label='Training Data')
-    plt.scatter(X_test[:, 0], X_test[:, 1], c=y_test, cmap=cm_bright,
+    plt.scatter(x_test[:, 0], x_test[:, 1], c=y_test, cmap=cm_bright,
                 edgecolors='k', marker='x', linewidth=3, label='Test Data')
     tmpX = np.c_[xx.ravel(), yy.ravel()]
     Z = my_predict_binary(tmpX, w)
@@ -162,8 +162,8 @@ def draw_result_binary(X_train, X_test, y_train, y_test, w):
     plt.xticks(())
     plt.yticks(())
     plt.legend()
-    y_predict = my_predict_binary(X_test, w)
-    score = myscore(y_predict, y_test)
+    y_predict = my_predict_binary(x_test, w)
+    score = my_score(y_predict, y_test)
     plt.text(xx.max() - .3, yy.min() + .3, ('Score = %.2f' %
                                             score).lstrip('0'), size=15, horizontalalignment='right')
     plt.title(s=get_data_name())
@@ -171,19 +171,19 @@ def draw_result_binary(X_train, X_test, y_train, y_test, w):
     plt.savefig('public/draw_result_binary.png')
 
 
-def my_train_multi(X_train, y_train):
+def my_train_multi(x_train, y_train):
     print('Start training ...')
     # fake code, only return a random vector
     np.random.seed(100)
-    nfeatures = X_train.shape[1]
+    nfeatures = x_train.shape[1]
     w = np.random.rand(nfeatures + 1)
     # w = [-1,0,0]
     print('Finished training.')
     return w
 
 
-def my_predict_multi(X, w):
-    return np.zeros([X.shape[0], 1])
+def my_predict_multi(x, w):
+    return np.zeros([x.shape[0], 1])
 
 
 def main():
@@ -205,8 +205,8 @@ def main():
     else:
         y_train_predict = my_predict_multi(x_train, w_opt)
         y_test_predict = my_predict_multi(x_test, w_opt)
-    train_score = myscore(y_train_predict, y_train)
-    test_score = myscore(y_test_predict, y_test)
+    train_score = my_score(y_train_predict, y_train)
+    test_score = my_score(y_test_predict, y_test)
     print('Training Score:', train_score)
     print('Test Score:', test_score)
 
