@@ -24,51 +24,51 @@ def acquire_data(data_name, number_of_classes_for_synthetic_data_set=2):
     global_data_name = data_name
     if data_name == 'synthetic-easy':
         logging.info('Creating easy synthetic labeled dataset')
-        X, y = datasets.make_classification(
+        x, y = datasets.make_classification(
             n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
             random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
-        X += 0 * rng.uniform(size=X.shape)
+        x += 0 * rng.uniform(size=x.shape)
     elif data_name == 'synthetic-medium':
         logging.info('Creating medium synthetic labeled dataset')
-        X, y = datasets.make_classification(
+        x, y = datasets.make_classification(
             n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
             random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
-        X += 3 * rng.uniform(size=X.shape)
+        x += 3 * rng.uniform(size=x.shape)
     elif data_name == 'synthetic-hard':
         logging.info('Creating hard easy synthetic labeled dataset')
-        X, y = datasets.make_classification(
+        x, y = datasets.make_classification(
             n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
             random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
-        X += 5 * rng.uniform(size=X.shape)
+        x += 5 * rng.uniform(size=x.shape)
     elif data_name == 'moons':
         logging.info('Creating two moons dataset')
-        X, y = datasets.make_moons(noise=0.3, random_state=0)
+        x, y = datasets.make_moons(noise=0.3, random_state=0)
     elif data_name == 'circles':
         logging.info('Creating two circles dataset')
-        X, y = datasets.make_circles(noise=0.2, factor=0.5, random_state=1)
+        x, y = datasets.make_circles(noise=0.2, factor=0.5, random_state=1)
     elif data_name == 'iris':
         logging.info('Loading iris dataset')
         iris = datasets.load_iris()
-        X = iris.data
+        x = iris.data
         y = iris.target
     elif data_name == 'digits':
         logging.info('Loading digits dataset')
         digits = datasets.load_digits()
-        X = digits.data
+        x = digits.data
         y = digits.target
     elif data_name == 'breast_cancer':
         logging.info('Loading breast cancer dataset')
         bcancer = datasets.load_breast_cancer()
-        X = bcancer.data
+        x = bcancer.data
         y = bcancer.target
     else:
         logging.info('Cannot find the requested data_name')
         assert False
     x_train, x_test, y_train, y_test = train_test_split(
-        X, y, test_size=0.5, random_state=42)
+        x, y, test_size=0.5, random_state=42)
     return x_train, x_test, y_train, y_test
 
 
@@ -79,9 +79,9 @@ def my_score(y, y_gt):
 
 def draw_data(x_train, x_test, y_train, y_test, number_of_classes):
     h = .02
-    X = np.vstack([x_train, x_test])
-    x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
-    y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
+    x = np.vstack([x_train, x_test])
+    x_min, x_max = x[:, 0].min() - .5, x[:, 0].max() + .5
+    y_min, y_max = x[:, 1].min() - .5, x[:, 1].max() + .5
 
     cm = plt.cm.jet
     plt.scatter(x_train[:, 0], x_train[:, 1], c=y_train,
@@ -132,9 +132,9 @@ def convert_zero_one_to_negative_one_one(y_gt):
 
 def draw_result_binary(x_train, x_test, y_train, y_test, w):
     h = .02
-    X = np.vstack([x_train, x_test])
-    x_min, x_max = X[:, 0].min() - .5, X[:, 0].max() + .5
-    y_min, y_max = X[:, 1].min() - .5, X[:, 1].max() + .5
+    x = np.vstack([x_train, x_test])
+    x_min, x_max = x[:, 0].min() - .5, x[:, 0].max() + .5
+    y_min, y_max = x[:, 1].min() - .5, x[:, 1].max() + .5
     xx, yy = np.meshgrid(
         np.arange(
             x_min, x_max, h), np.arange(
@@ -146,8 +146,8 @@ def draw_result_binary(x_train, x_test, y_train, y_test, w):
                 cmap=cm_bright, edgecolors='k', label='Training Data')
     plt.scatter(x_test[:, 0], x_test[:, 1], c=y_test, cmap=cm_bright,
                 edgecolors='k', marker='x', linewidth=3, label='Test Data')
-    tmpX = np.c_[xx.ravel(), yy.ravel()]
-    Z = my_predict_binary(tmpX, w)
+    tmp_x = np.c_[xx.ravel(), yy.ravel()]
+    Z = my_predict_binary(tmp_x, w)
     Z = Z.reshape(xx.shape)
     plt.pcolormesh(xx, yy, Z, cmap=plt.cm.RdBu, alpha=.4)
     plt.xlim(xx.min(), xx.max())
