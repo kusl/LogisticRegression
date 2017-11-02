@@ -33,8 +33,8 @@ def compute_grad(theta, X, y):
     delta = h - y
     l = grad.size
     for i in range(l):
-        sumdelta = delta.T.dot(X[:, i])
-        grad[i] = (1.0 / h) * sumdelta * - 1
+        sum_delta = delta.T.dot(X[:, i])
+        grad[i] = (1.0 / h) * sum_delta * - 1
     theta.shape = (3,)
     print(grad)
     return grad
@@ -47,6 +47,8 @@ def main():
     X += 0 * rng.uniform(size=X.shape)
     X_train, X_test, y_train, y_test = train_test_split(
         X, y, test_size=0.5, random_state=42)
+    print("Here comes X 기차")
+    print(X_train)
 
 
 if __name__ == "__main__":
