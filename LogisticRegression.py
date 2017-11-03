@@ -23,44 +23,44 @@ def acquire_data(data_name, number_of_classes_for_synthetic_data_set=2):
     global global_data_name
     global_data_name = data_name
     if data_name == 'synthetic-easy':
-        logging.info('Creating easy synthetic labeled dataset')
+        logging.info('Creating easy synthetic labeled data set')
         x, y = datasets.make_classification(
             n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
             random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
         x += 0 * rng.uniform(size=x.shape)
     elif data_name == 'synthetic-medium':
-        logging.info('Creating medium synthetic labeled dataset')
+        logging.info('Creating medium synthetic labeled data set')
         x, y = datasets.make_classification(
             n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
             random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
         x += 3 * rng.uniform(size=x.shape)
     elif data_name == 'synthetic-hard':
-        logging.info('Creating hard easy synthetic labeled dataset')
+        logging.info('Creating hard easy synthetic labeled data set')
         x, y = datasets.make_classification(
             n_features=2, n_redundant=0, n_informative=2, n_classes=number_of_classes_for_synthetic_data_set,
             random_state=1, n_clusters_per_class=1)
         rng = np.random.RandomState(2)
         x += 5 * rng.uniform(size=x.shape)
     elif data_name == 'moons':
-        logging.info('Creating two moons dataset')
+        logging.info('Creating two moons data set')
         x, y = datasets.make_moons(noise=0.3, random_state=0)
     elif data_name == 'circles':
-        logging.info('Creating two circles dataset')
+        logging.info('Creating two circles data set')
         x, y = datasets.make_circles(noise=0.2, factor=0.5, random_state=1)
     elif data_name == 'iris':
-        logging.info('Loading iris dataset')
+        logging.info('Loading iris data set')
         iris = datasets.load_iris()
         x = iris.data
         y = iris.target
     elif data_name == 'digits':
-        logging.info('Loading digits dataset')
+        logging.info('Loading digits data set')
         digits = datasets.load_digits()
         x = digits.data
         y = digits.target
     elif data_name == 'breast_cancer':
-        logging.info('Loading breast cancer dataset')
+        logging.info('Loading breast cancer data set')
         bcancer = datasets.load_breast_cancer()
         x = bcancer.data
         y = bcancer.target
@@ -101,7 +101,7 @@ def draw_data(x_train, x_test, y_train, y_test, number_of_classes):
 def my_train_binary(x_train, y_train):
     logging.info('Start training ...')
     # fixme
-    np.random.seed(100)
+    # np.random.seed(100)
     number_of_features = x_train.shape[1]
     # w = np.random.rand(number_of_features + 1)
     w = [0, 0, 0]
@@ -147,9 +147,9 @@ def draw_result_binary(x_train, x_test, y_train, y_test, w):
     plt.scatter(x_test[:, 0], x_test[:, 1], c=y_test, cmap=cm_bright,
                 edgecolors='k', marker='x', linewidth=3, label='Test Data')
     tmp_x = np.c_[xx.ravel(), yy.ravel()]
-    Z = my_predict_binary(tmp_x, w)
-    Z = Z.reshape(xx.shape)
-    plt.pcolormesh(xx, yy, Z, cmap=plt.cm.RdBu, alpha=.4)
+    z = my_predict_binary(tmp_x, w)
+    z = z.reshape(xx.shape)
+    plt.pcolormesh(xx, yy, z, cmap=plt.cm.RdBu, alpha=.4)
     plt.xlim(xx.min(), xx.max())
     plt.ylim(yy.min(), yy.max())
     plt.xticks(())
