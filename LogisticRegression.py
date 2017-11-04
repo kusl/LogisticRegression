@@ -210,6 +210,7 @@ def main():
             logging.debug(w_opt)
             draw_result_binary(x_train, x_test, y_train, y_test, w_opt)
             logging.debug("and here is our current score")
+            print(my_threshold)
             print(get_global_score())
             logging.debug(get_global_score())
     else:
