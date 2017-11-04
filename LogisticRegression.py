@@ -218,6 +218,8 @@ def main():
                 current_high_score = get_global_score()
                 logging.debug("our new high score is ")
                 logging.debug(current_high_score)
+                print("the current high score is ")
+                print(current_high_score)
     else:
         w_opt = my_train_multi(x_train, y_train)
     if number_of_classes == 2:
