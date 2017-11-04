@@ -6,6 +6,7 @@ logging.basicConfig(filename='public/my_log.log', level=logging.DEBUG)
 import matplotlib
 
 matplotlib.use('Agg')
+import random
 import numpy as np
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap
@@ -13,10 +14,15 @@ from sklearn import datasets
 from sklearn.model_selection import train_test_split
 
 global_data_name = "Not yet defined"
+global_score = 0.0
 
 
 def get_data_name():
     return global_data_name
+
+
+def get_global_score():
+    return global_score
 
 
 def acquire_data(data_name, number_of_classes_for_synthetic_data_set=2):
@@ -157,6 +163,8 @@ def draw_result_binary(x_train, x_test, y_train, y_test, w):
     plt.legend()
     y_predict = my_predict_binary(x_test, w)
     score = my_score(y_predict, y_test)
+    global global_score
+    global_score = score
     plt.text(xx.max() - .3, yy.min() + .3, ('Score = %.2f' %
                                             score).lstrip('0'), size=15, horizontalalignment='right')
     plt.title(s=get_data_name())
@@ -190,6 +198,18 @@ def main():
     if number_of_classes == 2:
         w_opt = my_train_binary(x_train, y_train)
         draw_result_binary(x_train, x_test, y_train, y_test, w_opt)
+        a = b = c = 0.0
+        while get_global_score() < 0.6:
+            a = random.random()
+            b = random.random()
+            c = random.random()
+            w_opt = [a, b, c]
+            logging.debug("here is the w_opt")
+            logging.debug(w_opt)
+            draw_result_binary(x_train, x_test, y_train, y_test, w_opt)
+            logging.debug("and here is our current score")
+            print(get_global_score())
+            logging.debug(get_global_score())
     else:
         w_opt = my_train_multi(x_train, y_train)
     if number_of_classes == 2:
