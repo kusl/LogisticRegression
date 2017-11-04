@@ -199,7 +199,7 @@ def main():
         w_opt = my_train_binary(x_train, y_train)
         draw_result_binary(x_train, x_test, y_train, y_test, w_opt)
         a = b = c = 0.0
-        my_threshold = 0.53
+        my_threshold = 0.54
         while get_global_score() < my_threshold:
             a = random.random()
             b = random.random()
