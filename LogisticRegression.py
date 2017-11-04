@@ -205,6 +205,7 @@ def main():
             c = random.random()
             w_opt = [a, b, c]
             logging.debug("here is the w_opt")
+            print(w_opt)
             logging.debug(w_opt)
             draw_result_binary(x_train, x_test, y_train, y_test, w_opt)
             logging.debug("and here is our current score")
