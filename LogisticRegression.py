@@ -100,7 +100,7 @@ def draw_data(x_train, x_test, y_train, y_test, number_of_classes):
 
 def my_train_binary(x_train, y_train):
     logging.info('Start training ...')
-    # fixme
+    # fixme TODO
     # np.random.seed(100)
     number_of_features = x_train.shape[1]
     # w = np.random.rand(number_of_features + 1)
@@ -111,7 +111,7 @@ def my_train_binary(x_train, y_train):
 
 
 def my_predict_binary(x, w):
-    # fixme
+    # fixme TODO
     assert len(w) == x.shape[1] + 1
     w_vec = np.reshape(w, (-1, 1))
     x_extended = np.hstack([x, np.ones([x.shape[0], 1])])
@@ -166,7 +166,7 @@ def draw_result_binary(x_train, x_test, y_train, y_test, w):
 
 def my_train_multi(x_train, y_train):
     logging.info('Start training ...')
-    # fixme
+    # fixme TODO
     np.random.seed(100)
     number_of_features = x_train.shape[1]
     w = np.random.rand(number_of_features + 1)
@@ -175,6 +175,7 @@ def my_train_multi(x_train, y_train):
 
 
 def my_predict_multi(x, w):
+    # fixme TODO
     return np.zeros([x.shape[0], 1])
 
 
