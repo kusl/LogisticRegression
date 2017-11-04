@@ -200,6 +200,7 @@ def main():
         draw_result_binary(x_train, x_test, y_train, y_test, w_opt)
         a = b = c = 0.0
         my_threshold = 0.60
+        current_high_score = get_global_score()
         while get_global_score() < my_threshold:
             a = random.random()
             b = random.random()
@@ -213,6 +214,10 @@ def main():
             print(my_threshold)
             print(get_global_score())
             logging.debug(get_global_score())
+            if current_high_score < get_global_score():
+                current_high_score = get_global_score()
+                logging.debug("our new high score is ")
+                logging.debug(current_high_score)
     else:
         w_opt = my_train_multi(x_train, y_train)
     if number_of_classes == 2:
