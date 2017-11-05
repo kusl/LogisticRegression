@@ -188,7 +188,7 @@ def my_predict_multi(x, w):
 
 
 def main():
-    x_train, x_test, y_train, y_test = acquire_data('synthetic-easy')
+    x_train, x_test, y_train, y_test = acquire_data('synthetic-hard')
     number_of_features = x_train.shape[1]
     number_of_training_data = x_train.shape[0]
     number_of_test_data = x_test.shape[0]
@@ -198,28 +198,6 @@ def main():
     if number_of_classes == 2:
         w_opt = my_train_binary(x_train, y_train)
         draw_result_binary(x_train, x_test, y_train, y_test, w_opt)
-        a = b = c = 0.0
-        my_threshold = 0.60
-        current_high_score = get_global_score()
-        while get_global_score() < my_threshold:
-            a = random.random()
-            b = random.random()
-            c = random.random()
-            w_opt = [a, b, c]
-            logging.debug("here is the w_opt")
-            print(w_opt)
-            logging.debug(w_opt)
-            draw_result_binary(x_train, x_test, y_train, y_test, w_opt)
-            logging.debug("and here is our current score")
-            print(my_threshold)
-            print(get_global_score())
-            logging.debug(get_global_score())
-            if current_high_score < get_global_score():
-                current_high_score = get_global_score()
-                logging.debug("our new high score is ")
-                logging.debug(current_high_score)
-                print("the current high score is ")
-                print(current_high_score)
     else:
         w_opt = my_train_multi(x_train, y_train)
     if number_of_classes == 2:
