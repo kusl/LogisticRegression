@@ -101,7 +101,7 @@ def draw_data(x_train, x_test, y_train, y_test, number_of_classes):
 def my_train_binary(x_train, y_train):
     logging.info('Start training ...')
     # fixme TODO
-    # np.random.seed(100)
+    np.random.seed(100)
     number_of_features = x_train.shape[1]
     w = np.random.rand(number_of_features + 1)
     logging.info(w)
@@ -179,7 +179,7 @@ def my_predict_multi(x, w):
 
 
 def main():
-    x_train, x_test, y_train, y_test = acquire_data('synthetic-hard')
+    x_train, x_test, y_train, y_test = acquire_data('synthetic-easy')
     number_of_features = x_train.shape[1]
     number_of_training_data = x_train.shape[0]
     number_of_test_data = x_test.shape[0]
