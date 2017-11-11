@@ -79,6 +79,11 @@ def main():
     do_it_with('synthetic-easy')
     do_it_with('synthetic-medium')
     do_it_with('synthetic-hard')
+    do_it_with('moons')
+    do_it_with('iris')
+    do_it_with('breast_cancer')
+    do_it_with('digits')
+    do_it_with('circles')
 
 
 if __name__ == "__main__":
