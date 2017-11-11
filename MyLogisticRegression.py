@@ -71,7 +71,9 @@ def do_it_with(data_set):
     model = LogisticRegression()
     y_raveled = np.ravel(y_train)
     model = model.fit(x_train, y_raveled)
-    logging.debug("here is the model score for " + data_set + ": ")
+    logging.debug("here is the model score for training data in " + data_set + ": ")
+    logging.debug(model.score(x_train, np.ravel(y_train)))
+    logging.debug("here is the model score for test data in " + data_set + ": ")
     logging.debug(model.score(x_test, np.ravel(y_test)))
 
 
