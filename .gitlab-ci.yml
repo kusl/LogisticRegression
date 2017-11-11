@@ -10,7 +10,7 @@ test:
   - pip install --upgrade pip setuptools
   - pip --version
   - pip install -r requirements.txt
-  - python LogisticRegression.py
+  - python MyLogisticRegression.py
   artifacts:
     paths:
     - public/

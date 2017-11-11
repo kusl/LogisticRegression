@@ -44,7 +44,7 @@ jobs:
           name: run tests
           command: |
             . venv/bin/activate
-            python LogisticRegression.py
+            python MyLogisticRegression.py
 
       - store_artifacts:
           path: public
