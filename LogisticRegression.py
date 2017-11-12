@@ -199,8 +199,8 @@ def my_predict_multi(x, w):
     return np.zeros([x.shape[0], 1])
 
 
-def main():
-    x_train, x_test, y_train, y_test = acquire_data('synthetic-easy')
+def do_it_with(data_set):
+    x_train, x_test, y_train, y_test = acquire_data(data_set)
     number_of_features = x_train.shape[1]
     number_of_training_data = x_train.shape[0]
     number_of_test_data = x_test.shape[0]
@@ -225,6 +225,14 @@ def main():
     logging.info("Test Score: ")
     logging.info(test_score)
     logging.info('Good bye')
+
+
+def main():
+    do_it_with('synthetic-easy')
+    do_it_with('synthetic-medium')
+    do_it_with('synthetic-hard')
+    do_it_with('moons')
+    do_it_with('circles')
 
 
 if __name__ == "__main__":
