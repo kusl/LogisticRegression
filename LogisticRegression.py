@@ -99,14 +99,35 @@ def draw_data(x_train, x_test, y_train, y_test, number_of_classes):
 
 
 def my_train_binary(x_train, y_train):
-    logging.info('Start training ...')
-    # fixme TODO
-    # np.random.seed(100)
+    print('Start training ...')
     number_of_features = x_train.shape[1]
-    w = np.random.rand(number_of_features + 1)
-    logging.info(w)
-    logging.info('Finished training.')
-    return w
+    w_vector = np.zeros(number_of_features + 1)
+    x_extended = np.hstack([x_train, np.ones([x_train.shape[0], 1])])
+    w_t_x = np.dot(x_extended, w_vector)
+    my_sigmoid = np.divide(1, np.add(1, np.exp(-w_t_x)))  # sigmoid (w_t_x)
+    y_n = my_sigmoid.reshape(-1)
+    loss2 = -(np.dot(y_train, np.log(y_n)) + np.dot(np.subtract(1, y_train), np.log(np.subtract(1, y_n))))
+    d_loss = loss2
+    eta = 1.01
+    while d_loss > 0.05 or d_loss < 0:
+        gradient_e = np.dot(np.subtract(y_n, y_train), x_extended)
+        w_vector = np.subtract(w_vector, np.multiply(eta, gradient_e))
+        w_t_x = np.dot(x_extended, w_vector)
+        my_sigmoid = np.divide(1, np.add(1, np.exp(-w_t_x)))
+        y_n = my_sigmoid.reshape(-1)
+        y_n[y_n < 0.05] = .05
+        y_n[y_n >= 1] = .95
+        loss1 = loss2
+        loss2 = -(np.dot(y_train, np.log(y_n)) + np.dot(np.subtract(1, y_train), np.log(np.subtract(1, y_n))))
+
+        if abs(loss1 > loss2) < d_loss:
+            eta = 1.01
+        else:
+            eta = -0.5
+        d_loss = abs(loss1 - loss2)
+    print('Finished training.')
+    logging.debug(w_vector)
+    return w_vector
 
 
 def my_predict_binary(x, w):
@@ -179,7 +200,7 @@ def my_predict_multi(x, w):
 
 
 def main():
-    x_train, x_test, y_train, y_test = acquire_data('synthetic-hard')
+    x_train, x_test, y_train, y_test = acquire_data('synthetic-easy')
     number_of_features = x_train.shape[1]
     number_of_training_data = x_train.shape[0]
     number_of_test_data = x_test.shape[0]

@@ -45,6 +45,7 @@ jobs:
           command: |
             . venv/bin/activate
             python MyLogisticRegression.py
+            python LogisticRegression.py
 
       - store_artifacts:
           path: public
