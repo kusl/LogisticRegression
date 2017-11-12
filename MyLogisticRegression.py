@@ -68,7 +68,7 @@ def acquire_data(data_name, number_of_classes_for_synthetic_data_set=2):
 def do_it_with(data_set):
     x_train, x_test, y_train, y_test = acquire_data(data_name=data_set)
     y = np.append(y_train, y_test)
-    model = LogisticRegression()
+    model = LogisticRegression(verbose=1)
     y_raveled = np.ravel(y_train)
     model = model.fit(x_train, y_raveled)
     logging.debug("here is the model score for training data in " + data_set + ": ")
