@@ -228,6 +228,7 @@ def do_it_with(data_set):
 
 
 def main():
+    # TODO zero out variables after done with do it?
     do_it_with('synthetic-easy')
     do_it_with('synthetic-medium')
     do_it_with('synthetic-hard')
