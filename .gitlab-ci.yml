@@ -12,6 +12,8 @@ test:
   - pip install -r requirements.txt
   - python MyLogisticRegression.py
   - python LogisticRegression.py
+  - cd public
+  - sh images.sh
   artifacts:
     paths:
     - public/
