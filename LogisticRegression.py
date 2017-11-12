@@ -95,7 +95,7 @@ def draw_data(x_train, x_test, y_train, y_test, number_of_classes):
     plt.legend()
     plt.title(s=get_data_name())
     # plt.show()
-    plt.savefig('public/draw_data.png')
+    plt.savefig('public/draw_data_' + get_data_name() + '.png')
 
 
 def my_train_binary(x_train, y_train):
@@ -181,7 +181,7 @@ def draw_result_binary(x_train, x_test, y_train, y_test, w):
                                             score).lstrip('0'), size=15, horizontalalignment='right')
     plt.title(s=get_data_name())
     # plt.show()
-    plt.savefig('public/draw_result_binary.png')
+    plt.savefig('public/draw_result_binary_' + get_data_name() + '.png')
 
 
 def my_train_multi(x_train, y_train):
