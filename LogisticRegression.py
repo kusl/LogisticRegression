@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*-
 import logging
 
-logging.basicConfig(filename='public/my_log.log', level=logging.DEBUG)
+logging.basicConfig(filename='public/log', level=logging.DEBUG)
 import matplotlib
 
 matplotlib.use('Agg')
